@@ -6,7 +6,12 @@
     let endpoint = "https://tools.sopress.net/iut/panier/api/";
     let token = "gilles@sopress.net";
     function setUrl(uri) {
-      return endpoint + uri + "?token=" + encodeURIComponent(token);
+      if(uri.indexOf('?')>-1) {
+        uri+= '&'
+      } else {
+        uri+= '?'
+      }
+      return endpoint + uri + "token=" + encodeURIComponent(token);
     }
     return {
       get(uri) {
@@ -39,6 +44,8 @@
       return '<span class="photo" style="background-image:url('+produit.photo+')"></span>';
     }
 
+    let page = 1;
+
     return {
       retirerProduitPanier(id_produit) {
         axiosWrapper.delete('cart/' + id_produit).then(function(response) {
@@ -69,7 +76,7 @@
       ajouterAuPanier(id_produit) {
         axiosWrapper.post('cart/' + id_produit).then(function(response) {
           panier.modules.actions.construirePanier(response.data);
-        })
+        });
       },
       /* Appel de l'api pour récupérer les produits du panier, puis construction du panier */
       chargerPanier() {
@@ -80,11 +87,28 @@
 
       /* Appel de l'api pour récupérer les produits, puis construction de la liste */
       chargerProduits() {
-        axiosWrapper.get('products').then(function(response) {
+        let field = $('#field').val();
+        let sort = $('#sort').val();  
+        axiosWrapper.get('products?page='+page+'&sort='+sort+'&field='+field).then(function(response) {
           panier.modules.actions.construireListeProduits(response.data);
         });
       },
-
+      changerOrdre() {
+        page=1;
+        panier.modules.actions.chargerProduits();
+      },
+      pageSuivante() {
+        page = Number($('.page').html());
+        page++;
+        panier.modules.actions.chargerProduits();
+      },
+      pagePrecedente() {
+        page = Number($('.page').html());
+        if(page>1) {
+          page--;
+          panier.modules.actions.chargerProduits();
+        }
+      },
       /* Construction du panier */
       construirePanier(produits=[]) {
         let total = 0;
@@ -120,7 +144,10 @@
             </div>`
           );
         });
-        $('#products').html(html.join(''));
+        if(html.length) {
+          $('.page').html(page);
+          $('#liste-produits').html(html.join(''));
+        }
       }
     }
   })();
@@ -149,6 +176,9 @@
         $(document).on('click','#buy',panier.modules.actions.validerPanier);
 
 
+        $(document).on('change','#sort, #field',panier.modules.actions.changerOrdre);
+        $(document).on('click','#page-precedente',panier.modules.actions.pagePrecedente);
+        $(document).on('click','#page-suivante',panier.modules.actions.pageSuivante);
 
       }
     }
