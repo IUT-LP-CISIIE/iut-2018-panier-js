@@ -48,12 +48,16 @@
       /* Vider le panier */
       validerPanier() {
         let total = $('.ligne-produit').length;
+        $('#panier').addClass('panier-loading');
         $('.ligne-produit').each(function(){
-
-        })
-        axiosWrapper.put('cart/'+id+'/buy').then(function(response) {
-          console.log(response.data)
-        })
+          axiosWrapper.put('cart/'+$(this).data('id')+'/buy').then((response) => {
+            total--;
+            $(this).addClass('produit-ok');
+            if(total == 0) {
+              setTimeout(function() { $('#panier').addClass('panier-ok'); }, 1000);
+            }
+          })
+        });
       },
       /* Vider le panier */
       viderPanier() {
