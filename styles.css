@@ -1,0 +1,50 @@
+body{
+    font-family: Helvetica;
+}
+#wrapper{
+    display: flex;
+    padding: 1em;
+}
+
+#products{
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.case-produit {
+	width:300px;
+	border:1px solid #ccc;
+	padding: 15px;
+	margin:15px;
+}
+.case-produit p{
+	font-size:small;
+}
+.case-produit .prix{
+	font-weight:bold;
+	font-size:40px;
+	display: block;
+}
+.case-produit .photo{
+	display: block;
+	height: 100px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin: 15px 0;
+}
+
+
+#panier-content .ligne-produit {
+	font-size:12px;
+	border-bottom:1px dotted #ccc;
+	padding-bottom:5px;
+	margin-bottom:5px;
+}
+
+.retirer-produit {
+	font-size:12px;
+	border:0;
+	background: none
+}
