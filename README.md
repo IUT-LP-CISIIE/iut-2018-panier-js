@@ -21,7 +21,7 @@ L'API requiert un token pour toutes les actions relatives au panier. On utiliser
 
 ### Accèder au "pen" ajaxQuery
 
-[https://codepen.io/gfra/pen/LXKwBK?editors=0010](ajaxQuery)
+[ajaxQuery](https://codepen.io/gfra/pen/LXKwBK?editors=0010)
 
 Découverte d'une fonction en Javascript natif qui permet d'implémenter facilement un appel asynchrone (AJAX) vers l'API du panier.
 
