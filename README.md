@@ -27,6 +27,8 @@ Découverte d'une fonction en Javascript natif qui permet d'implémenter facilem
 
 ### Découverte de Axios
 
+[Ajax avec Axios](https://codepen.io/gfra/pen/WYVeLL?editors=0010)
+
 Axios est une librairie open source très utile dans les appels asynchrones d'API en javascript. Il met à disposition un object `axios` dans le code.
 
 Découverte de l'objet `axiosWrapper`
